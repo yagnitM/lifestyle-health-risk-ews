@@ -1,0 +1,4 @@
+model_name,train_accuracy,test_accuracy,precision,recall,f1_score,roc_auc
+Logistic Regression (TF-IDF),0.96,0.9381,0.9384,0.9381,0.9382,0.9837
+Random Forest (TF-IDF),0.9277,0.9045,0.9092,0.9045,0.905,0.9737
+Naive Bayes (TF-IDF),0.8894,0.8754,0.8862,0.8754,0.8762,0.9623

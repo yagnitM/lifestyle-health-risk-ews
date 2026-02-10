@@ -1,0 +1,4 @@
+model_name,train_accuracy,test_accuracy,precision,recall,f1_score,roc_auc,train_time
+SBERT + Linear SVM,0.9356,0.926,0.9263,0.926,0.9261,,1.2974
+SBERT + RBF SVM,0.9757,0.9467,0.9469,0.9467,0.9468,0.987,88.9401
+SBERT + SVM (Tuned),0.9998,0.9494,0.9494,0.9494,0.9494,0.9883,
