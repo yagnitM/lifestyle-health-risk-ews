@@ -1,6 +1,86 @@
+/* ── Layout ── */
 .app {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+.header {
   text-align: center;
+  padding: 48px 24px 32px;
+  position: relative;
+}
+
+.header-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #6c63ff, #f093fb);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+.header h1 {
+  font-size: clamp(24px, 5vw, 42px);
+  font-weight: 800;
+  background: linear-gradient(90deg, #6c63ff, #f093fb, #4fc3f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.header p {
+  color: #8888aa;
+  font-size: 15px;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.main-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+}
+
+/* ── Cards ── */
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  transition: border-color 0.3s;
+}
+
+.card:hover {
+  border-color: rgba(108, 99, 255, 0.3);
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #6c63ff;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Disclaimer ── */
+.disclaimer {
+  text-align: center;
+  color: #555577;
+  font-size: 12px;
+  padding: 24px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  margin-top: 8px;
 }
