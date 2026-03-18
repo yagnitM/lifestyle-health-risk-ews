@@ -1,16 +1,57 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* ============================================================
+   index.css — HealthGuard AI
+   Theme: Calm Wellness · Dark base · Warm light accents
+   Palette: deep slate-green base · sage · warm cream · coral
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── Core palette ── */
+  --col-base:    #141d1b;   /* deep forest-black — page bg           */
+  --col-mist:    #e8e0d5;   /* warm cream — primary text             */
+  --col-spark:   #a8c5a0;   /* muted sage green — primary accent     */
+  --col-teal:    #6bab8f;   /* deeper sage — secondary accent        */
+  --col-crimson: #c96a5a;   /* muted terracotta — danger / high risk */
+
+  /* ── Derived ── */
+  --col-base-raised:  #1b2622;   /* cards                                */
+  --col-base-border:  #263330;   /* borders                              */
+  --col-base-deep:    #0e1614;   /* inset wells, textarea bg             */
+
+  --col-mist-dim:    rgba(232,224,213,0.50);
+  --col-mist-ghost:  rgba(232,224,213,0.07);
+  --col-spark-dim:   rgba(168,197,160,0.14);
+  --col-teal-dim:    rgba(107,171,143,0.13);
+  --col-crimson-dim: rgba(201,106,90,0.12);
+
+  /* ── Fonts ── */
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-ui:      'Syne', system-ui, sans-serif;
+  --font-mono:    'DM Mono', monospace;
 }
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { -webkit-font-smoothing: antialiased; }
 
 body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: #0f0f1a;
-  color: #e0e0e0;
-  min-height: 100vh;
+  font-family: var(--font-ui);
+  background:  var(--col-base);
+  color:       var(--col-mist);
+  min-height:  100vh;
 }
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #1a1a2e; }
-::-webkit-scrollbar-thumb { background: #6c63ff; border-radius: 3px; }
+::selection { background: var(--col-spark-dim); color: var(--col-spark); }
+
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: var(--col-base); }
+::-webkit-scrollbar-thumb { background: var(--col-teal); border-radius: 99px; }
+
+@keyframes hg-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes hg-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

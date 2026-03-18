@@ -1,89 +1,100 @@
 import React from 'react'
 
-const LEVEL_CONFIG = {
-  VERY_LOW : { emoji: '💚', gradient: 'linear-gradient(135deg, #27ae60, #2ecc71)', bg: 'rgba(46,204,113,0.1)',  border: 'rgba(46,204,113,0.3)'  },
-  LOW      : { emoji: '🟢', gradient: 'linear-gradient(135deg, #27ae60, #58d68d)', bg: 'rgba(46,204,113,0.1)',  border: 'rgba(46,204,113,0.3)'  },
-  MEDIUM   : { emoji: '🟡', gradient: 'linear-gradient(135deg, #d35400, #f39c12)', bg: 'rgba(243,156,18,0.1)',  border: 'rgba(243,156,18,0.3)'  },
-  HIGH     : { emoji: '🔴', gradient: 'linear-gradient(135deg, #c0392b, #e74c3c)', bg: 'rgba(231,76,60,0.1)',   border: 'rgba(231,76,60,0.3)'   },
+const LEVEL = {
+  VERY_LOW: { color: 'var(--col-teal)',    bg: 'var(--col-teal-dim)',    border: 'rgba(0,178,149,0.25)',   label: 'VERY LOW RISK' },
+  LOW:      { color: 'var(--col-teal)',    bg: 'var(--col-teal-dim)',    border: 'rgba(0,178,149,0.25)',   label: 'LOW RISK'      },
+  MEDIUM:   { color: '#c97a1a',            bg: 'rgba(201,122,26,0.10)',  border: 'rgba(201,122,26,0.28)',  label: 'MEDIUM RISK'   },
+  HIGH:     { color: 'var(--col-crimson)', bg: 'var(--col-crimson-dim)', border: 'rgba(171,35,70,0.30)',   label: 'HIGH RISK'     },
 }
 
 export default function RiskResult({ result }) {
-  const cfg  = LEVEL_CONFIG[result.risk_level] || LEVEL_CONFIG.MEDIUM
+  const cfg  = LEVEL[result.risk_level] || LEVEL.MEDIUM
   const pct  = Math.round(result.ensemble_probability * 100)
   const conf = Math.round(result.confidence * 100)
+  const circ = 2 * Math.PI * 46
+  const dash = circ * (1 - result.ensemble_probability)
 
   return (
     <div className="card" style={{ border: `1px solid ${cfg.border}`, background: cfg.bg }}>
-      <div className="card-title"><span>📊</span> Risk Assessment Result</div>
+      <div className="card-label">Risk Assessment Result</div>
 
-      {/* Main score */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
 
-        {/* Circular gauge */}
-        <div style={{ position: 'relative', width: '130px', height: '130px', flexShrink: 0 }}>
-          <svg width="130" height="130" style={{ transform: 'rotate(-90deg)' }}>
-            <circle cx="65" cy="65" r="54"
-              fill="none" stroke="rgba(255,255,255,0.07)" strokeWidth="10" />
-            <circle cx="65" cy="65" r="54"
+        {/* Gauge */}
+        <div style={{ position: 'relative', width: '120px', height: '120px', flexShrink: 0 }}>
+          <svg width="120" height="120" viewBox="0 0 110 110" style={{ transform: 'rotate(-90deg)' }}>
+            <circle cx="55" cy="55" r="46"
+              fill="none" stroke="var(--col-mist-ghost)" strokeWidth="8" />
+            <circle cx="55" cy="55" r="46"
               fill="none"
-              stroke="url(#grad)"
-              strokeWidth="10"
+              stroke={cfg.color}
+              strokeWidth="8"
               strokeLinecap="round"
-              strokeDasharray={`${2 * Math.PI * 54}`}
-              strokeDashoffset={`${2 * Math.PI * 54 * (1 - result.ensemble_probability)}`}
-              style={{ transition: 'stroke-dashoffset 1s ease' }}
+              strokeDasharray={circ}
+              strokeDashoffset={dash}
+              style={{ transition: 'stroke-dashoffset 1s cubic-bezier(0.4,0,0.2,1)' }}
             />
-            <defs>
-              <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%"   stopColor="#6c63ff" />
-                <stop offset="100%" stopColor="#f093fb" />
-              </linearGradient>
-            </defs>
           </svg>
           <div style={{
-            position  : 'absolute', inset: 0,
-            display   : 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center',
+            position:       'absolute', inset: 0,
+            display:        'flex', flexDirection: 'column',
+            alignItems:     'center', justifyContent: 'center',
           }}>
-            <span style={{ fontSize: '26px', fontWeight: '800', color: '#fff' }}>{pct}%</span>
-            <span style={{ fontSize: '10px', color: '#8888aa', letterSpacing: '1px' }}>RISK</span>
+            <span style={{
+              fontSize:    '26px',
+              fontWeight:  '500',
+              fontFamily:  'var(--font-mono)',
+              color:       cfg.color,
+              letterSpacing: '-1.5px',
+            }}>
+              {pct}%
+            </span>
+            <span style={{ fontSize: '8px', color: 'var(--col-mist-dim)', letterSpacing: '2px', marginTop: '2px' }}>
+              RISK
+            </span>
           </div>
         </div>
 
-        {/* Labels */}
-        <div style={{ flex: 1, minWidth: '200px' }}>
+        {/* Info */}
+        <div style={{ flex: 1, minWidth: '180px' }}>
           <div style={{
-            display     : 'inline-flex', alignItems: 'center', gap: '10px',
-            background  : cfg.bg, border: `1px solid ${cfg.border}`,
-            borderRadius: '12px', padding: '10px 18px', marginBottom: '14px',
+            display:      'inline-flex',
+            alignItems:   'center',
+            background:   cfg.bg,
+            border:       `1px solid ${cfg.border}`,
+            borderRadius: '8px',
+            padding:      '7px 16px',
+            marginBottom: '14px',
           }}>
-            <span style={{ fontSize: '24px' }}>{cfg.emoji}</span>
-            <span style={{
-              fontSize  : '22px', fontWeight: '800',
-              background: cfg.gradient,
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-            }}>
-              {result.risk_label}
+            <span style={{ fontSize: '13px', fontWeight: '700', color: cfg.color, letterSpacing: '1px' }}>
+              {cfg.label}
             </span>
           </div>
 
-          {/* Stats row */}
-          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             {[
-              { label: 'Probability', value: `${pct}%`  },
-              { label: 'Confidence',  value: `${conf}%` },
-              { label: 'Time',        value: `${result.processing_time_ms}ms` },
-            ].map(stat => (
-              <div key={stat.label} style={{
-                background: 'rgba(255,255,255,0.05)', borderRadius: '10px',
-                padding: '10px 16px', textAlign: 'center',
+              { key: 'Probability', val: `${pct}%`  },
+              { key: 'Confidence',  val: `${conf}%` },
+              { key: 'Processed',   val: `${result.processing_time_ms}ms` },
+            ].map(s => (
+              <div key={s.key} style={{
+                background:    'var(--col-base-deep)',
+                border:        '1px solid var(--col-base-border)',
+                borderRadius:  '8px',
+                padding:       '8px 14px',
+                textAlign:     'center',
               }}>
-                <div style={{ fontSize: '18px', fontWeight: '700', color: '#fff' }}>
-                  {stat.value}
+                <div style={{
+                  fontSize:    '17px',
+                  fontWeight:  '500',
+                  fontFamily:  'var(--font-mono)',
+                  color:       'var(--col-mist)',
+                  letterSpacing: '-0.5px',
+                }}>
+                  {s.val}
                 </div>
-                <div style={{ fontSize: '11px', color: '#8888aa', marginTop: '2px' }}>
-                  {stat.label}
+                <div style={{ fontSize: '9px', color: 'var(--col-mist-dim)', marginTop: '3px', textTransform: 'uppercase', letterSpacing: '0.8px' }}>
+                  {s.key}
                 </div>
               </div>
             ))}
