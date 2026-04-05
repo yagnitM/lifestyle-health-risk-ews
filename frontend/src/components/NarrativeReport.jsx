@@ -164,6 +164,33 @@ export default function NarrativeReport({ result }) {
         </p>
       </div>
 
+          {/* ── SECTION 2.5: LLM Narrative ── */}
+{result.llm_narrative && result.llm_narrative !== "Personalized explanation unavailable." && (
+  <div className="card" style={{
+    border:     '1px solid rgba(99,102,241,0.22)',
+    background: 'rgba(99,102,241,0.06)',
+  }}>
+    <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
+      <span style={{ fontSize: '20px', flexShrink: 0 }}>🤖</span>
+      <div>
+        <div style={{
+          fontSize:      '10px',
+          fontWeight:    '700',
+          color:         '#6366f1',
+          marginBottom:  '6px',
+          textTransform: 'uppercase',
+          letterSpacing: '1.5px',
+        }}>
+          AI Health Assistant
+        </div>
+        <p style={{ fontSize: '14px', lineHeight: '1.9', color: 'var(--col-mist-dim)' }}>
+          {result.llm_narrative}
+        </p>
+      </div>
+    </div>
+  </div>
+)}
+
       {/* ── SECTION 3: Risk dimensions ── */}
       {narrative.risk_dimensions.length > 0 && (
         <div className="card">

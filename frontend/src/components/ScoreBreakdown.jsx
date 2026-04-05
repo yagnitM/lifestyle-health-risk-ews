@@ -54,7 +54,7 @@ export default function ScoreBreakdown({ result }) {
 
   return (
     <div className="card">
-      <div className="card-label">Score Breakdown — How 74% Becomes This Number</div>
+      <div className="card-label">Score Breakdown</div>
 
       <MiniBar
         label       ="Text Model Score"

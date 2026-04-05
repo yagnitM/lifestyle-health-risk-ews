@@ -1,0 +1,4 @@
+Experiment,Accuracy,F1-Score,ROC-AUC,Acc Drop,Interpretation
+Baseline (Original Labels),0.938090241343127,0.9381658555965189,0.9837351218217047,0.0,Production performance
+Exp 1: Label Swap (Diabetes<->Fitness),0.950682056663169,0.950535615668807,0.9891724308272786,-0.012591815320041944,Vocabulary too distinct to collapse
+Exp 2: Random Shuffle (Null Baseline),0.5456453305351522,0.5037842476505825,0.4912107885505109,0.39244491080797483,DEFINITIVE PROOF — collapse to chance

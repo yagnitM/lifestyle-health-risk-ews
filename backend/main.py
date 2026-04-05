@@ -20,6 +20,8 @@ from risk_scoring import (
     generate_contributing_factors,
 )
 
+from risk_scoring import generate_llm_narrative
+
 # ── Logging ──
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -85,6 +87,7 @@ class PredictionResponse(BaseModel):
     # Explanation
     contributing_factors : list
     recommendations      : list
+    llm_narrative        : str
 
     # Provenance — NEW
     provenance           : dict
@@ -243,6 +246,14 @@ def predict(input_data: TextInput):
         # ── Step 10: Build provenance (NEW) ──
         provenance = build_provenance(feature_result, blend_metadata)
 
+        # ── Step 10.5: LLM Narrative (Gemini) ──
+        llm_narrative = generate_llm_narrative(
+            risk_level = risk_info['level'],
+            text_score = text_score,
+            feature_score = feature_result['feature_score'],
+            features = features
+        )
+
         # ── Step 11: Assemble response ──
         processing_time = round((time.time() - start_time) * 1000, 2)
 
@@ -275,6 +286,7 @@ def predict(input_data: TextInput):
             # Explanation
             contributing_factors = contributing_factors,
             recommendations      = recommendations,
+            llm_narrative = llm_narrative if llm_narrative else "Personalized explanation unavailable.",
 
             # Provenance — NEW
             provenance           = provenance,
@@ -332,6 +344,7 @@ def sample_prediction():
             "🚬 Quitting smoking significantly reduces cardiovascular risk.",
             "🧠 High stress detected. Consider mindfulness or therapy."
         ],
+        "llm_narrative": "Your lifestyle patterns indicate elevated risk due to poor sleep, smoking, and stress. Improving these habits can significantly reduce long-term health risks.",
         "provenance": {                          # NEW
             "scoring_method": {
                 "text_model"   : "3-model ensemble (TF-IDF LR 40% · TF-IDF RF 25% · SBERT SVM 35%)",

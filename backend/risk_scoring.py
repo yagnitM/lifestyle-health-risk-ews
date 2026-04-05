@@ -1,5 +1,12 @@
 import numpy as np
 from typing import Optional
+import os
+from dotenv import load_dotenv
+from groq import Groq
+
+load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), '..', '.env'))
+client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
 
 
 # ── Ensemble weights (TF-IDF LR : TF-IDF RF : SBERT) ──
@@ -525,3 +532,31 @@ def generate_contributing_factors(
         })
 
     return factors
+
+# ─────────────────────────────────────────────────────────────────────────────
+# SECTION 9 — LLM Narrative (Grok)
+# ─────────────────────────────────────────────────────────────────────────────
+
+def generate_llm_narrative(risk_level, text_score, feature_score, features):
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",  # free, fast
+            max_tokens=200,
+            messages=[{
+                "role": "user",
+                "content": f"""You are a lifestyle health risk assistant.
+- Risk Level: {risk_level}
+- Text Score: {text_score}
+- Feature Score: {feature_score}
+- Smoking: {features.get('smoking_detected')}
+- Alcohol: {features.get('alcohol_detected')}
+- Sleep: {features.get('sleep_hours')}
+- Stress: {features.get('stress_score')}
+
+Write 2-3 simple sentences explaining the user's lifestyle risk. Do NOT diagnose diseases. Be clear and practical."""
+            }]
+        )
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        print(f"GROQ ERROR: {type(e).__name__}: {e}")
+        return None
