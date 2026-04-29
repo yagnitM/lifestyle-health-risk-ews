@@ -94,9 +94,9 @@ export default function App() {
           )}
         </div>
 
-        <aside className="right-col">
+        {/* <aside className="right-col">
           <SidePanel result={result} />
-        </aside>
+        </aside> */}
       </main>
     </div>
   )

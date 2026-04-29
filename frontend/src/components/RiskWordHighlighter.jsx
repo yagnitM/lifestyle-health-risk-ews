@@ -172,14 +172,13 @@ export default function RiskWordHighlighter({ originalText, result }) {
 
       <p style={{
         fontSize:   '10px',
-        color:      'var(--col-mist-dim)',
+        color:      '#ffffff',
         marginTop:  '10px',
         lineHeight: '1.5',
         opacity:    0.4,
         fontFamily: 'var(--font-mono)',
       }}>
-        Highlights based on TF-IDF coefficient analysis from Notebook 5 —
-        words the model learned to associate with high-risk vs low-risk health communities.
+        Highlights based on TF-IDF coefficient analysis
       </p>
     </div>
   )

@@ -282,7 +282,7 @@ export default function ProvenancePanel({ provenance }) {
 
           {/* Source note */}
           <p style={{ fontSize: '9px', color: 'var(--col-mist-dim)', lineHeight: '1.5', opacity: 0.4, fontFamily: 'var(--font-mono)' }}>
-            Clinical weights source: {provenance.clinical_weights_source}
+            
           </p>
         </div>
       )}

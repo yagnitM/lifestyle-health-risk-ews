@@ -13,14 +13,14 @@ const EXAMPLES = [
     color: 'var(--col-teal)',
     border: 'rgba(0,178,149,0.35)',
     bg:    'rgba(0,178,149,0.08)',
-    text: "Just finished training for a 10K race! I run every morning, eat a clean diet with lots of vegetables and protein. Sleep is great — about 8 hours every night. I meditate daily to manage stress and haven't touched alcohol in two years.",
+    text: "Just finished training for a 10K race! I run every morning, eat a clean diet with lots of vegetables and protein. Sleep is great — about 8 hours every night. I meditate daily to manage my mental health.",
   },
   {
     label: '🟡 Mixed',
     color: '#c97a1a',
     border: 'rgba(201,122,26,0.35)',
     bg:    'rgba(201,122,26,0.08)',
-    text: "I work out 3 times a week and try to eat healthy but I do drink on weekends and my sleep schedule is pretty irregular, usually around 5-6 hours. Work stress has been really bad lately and I've been feeling overwhelmed most days.",
+    text: "I sleep around 5 hours on weekdays, skip breakfast often, rely on coffee to stay active, and have mild but frequent work stress. I exercise only once a week. For bursting stress, I sometimes smoke too, like once a month.",
   },
 ]
 
